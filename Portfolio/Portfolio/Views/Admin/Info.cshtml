@@ -1,0 +1,16 @@
+﻿@using Portfolio.Models
+@model AdditionalInfo
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@ViewBag.Header</h3>
+<form method="POST">
+
+    <div class="form-group">
+        @Html.Label("Məlumat")
+        @Html.TextBoxFor(m => m.Info, new { placeholder = ViewBag.Placeholder, @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.Info, "", new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">@ViewBag.Button</button>
+</form>

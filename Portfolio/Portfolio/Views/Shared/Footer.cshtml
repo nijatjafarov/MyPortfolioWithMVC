@@ -1,0 +1,25 @@
+﻿@using System.Linq;
+@using System.Collections.Generic;
+@using Portfolio.Models;
+@{
+    var context = new NijatPortfolioEntities();
+    List<Contact> contacts = context.Contacts.Where(m => m.ShowOnFooter == true).ToList<Contact>();
+}
+
+
+<footer class="main-font">
+    <span style="color: #3b994f;" class="lets-chat">// Gəlin danışaq!</span>
+    <div class="footer-contact">
+        @foreach (var contact in contacts)
+        {
+            if (contact.URL == null)
+            {
+                <p>@contact.Name<span style="color:white;">(</span><span>"@contact.Value"</span>)</p>
+            }
+            else
+            {
+                <p>@contact.Name<span style="color:white;">(</span><span><a style="color: #3b994f;text-decoration:none" href="@contact.URL" target="_blank">"@contact.Value"</a></span>)</p>
+            }
+        }
+    </div>
+</footer>

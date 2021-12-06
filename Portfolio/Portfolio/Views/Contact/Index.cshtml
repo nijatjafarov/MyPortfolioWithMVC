@@ -1,0 +1,46 @@
+﻿@model Portfolio.Models.UserMessage
+@section Head {
+    <link rel="stylesheet" href="~/Content/contact.css">
+    <title>Mənimlə əlaqə</title>
+}
+<h2 class="main-font page-info">MƏNİMLƏ ƏLAQƏ</h2>
+<p style="margin-top: 70px;word-break:normal" class="main-font">Əgər mənimlə ünsiyyətə keçmək istəyirsinizsə bunun üçün bir neçə yol mövcuddur. Aşağıdakı formu dolduraraq mənə mesajınızı bildirməyiniz mümkündür.</p>
+<div class="form-and-contact">
+    <form method="POST">
+        <div class="input-group">
+            @Html.Label("Ad və soyad", new { @class = "main-font" })
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control form-control-lg" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "error-div" })
+        </div>
+        <div class="input-group">
+            <label class="main-font" for="userMail">Elektron Poçt</label>
+            <input type="email" name="userMail" required />
+            @Html.ValidationMessageFor(m => m.UserMail, "", new { @class = "error-div" })
+        </div>
+        <div class="input-group">
+            @Html.Label("Mesaj", new { @class = "main-font" })
+            @Html.TextAreaFor(m => m.UserMsg, new { @class = "form-control form-control-lg" })
+            @Html.ValidationMessageFor(m => m.UserMsg, "", new { @class = "error-div" })
+        </div>
+        <div class="input-group button">
+            <button style="color: white;" class="main-font" type="submit">Mesajı göndərin</button>
+        </div>
+    </form>
+    <div class="contact">
+        <p style="margin-bottom: 20px;word-break:normal" " class="main-font">Həmçinin, aşağıda qeyd edilən kontakt məlumatları ilə də mənlə əlaqə saxlaya bilərsiniz:</p>
+        @foreach (var contact in ViewBag.Contacts)
+        {
+            if (contact.URL == null)
+            {
+                <p class="main-font">@contact.Name<span style="color:white;">(</span><span>"@contact.Value"</span>)</p>
+            }
+            else
+            {
+                <p class="main-font">@contact.Name<span style="color:white;">(</span><span><a style="color: #3b994f;text-decoration:none" href="@contact.URL" target="_blank">"@contact.Value"</a></span>)</p>
+            }
+        }
+    </div>
+</div>
+@section JS {
+    <script src="~/Scripts/home.js"></script>
+}

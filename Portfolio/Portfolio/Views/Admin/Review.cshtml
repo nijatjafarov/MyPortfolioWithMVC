@@ -1,0 +1,29 @@
+﻿@using Portfolio.Models
+@model Review
+@{
+    ViewBag.Title = "Source";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@ViewBag.Header</h3>
+<form method="POST">
+    <div class="form-group">
+        @Html.Label("Rəy")
+        @Html.TextBoxFor(m => m.Review1, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.Review1, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Rəy sahibi")
+        @Html.TextBoxFor(m => m.ReviewOwner, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.ReviewOwner, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Rəy sahibinin vəzifəsi")
+        @Html.TextBoxFor(m => m.OwnerProfession, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.OwnerProfession, "", new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">@ViewBag.Button</button>
+</form>
+
+
+

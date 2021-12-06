@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NijatPortfolioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AboutMe">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Header" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="AdditionalInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Info" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Blog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Header" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UploadDate" Type="DateTime" Precision="3" />
+    <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MyWorksOnProject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProjectId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Project" Relationship="Self.WorkProjectFk" FromRole="MyWorksOnProject" ToRole="Projects" />
+  </EntityType>
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProjectId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Project" Relationship="Self.PhotoProjectFK" FromRole="Photos" ToRole="Projects" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="About" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodeURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RealUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="FinishDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="MyWorksOnProjects" Relationship="Self.WorkProjectFk" FromRole="Projects" ToRole="MyWorksOnProject" />
+    <NavigationProperty Name="Photos" Relationship="Self.PhotoProjectFK" FromRole="Projects" ToRole="Photos" />
+    <NavigationProperty Name="Technologies" Relationship="Self.ProjectTechJunction" FromRole="Projects" ToRole="Technologies" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Review1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ReviewOwner" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OwnerProfession" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TechnologyId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Technology" Relationship="Self.TaskTechnologyFK" FromRole="Tasks" ToRole="Technologies" />
+  </EntityType>
+  <EntityType Name="Technology">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="FinishDate" Type="DateTime" Precision="3" />
+    <Property Name="UsageInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LearningSource" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="ParentTechnology" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tasks" Relationship="Self.TaskTechnologyFK" FromRole="Technologies" ToRole="Tasks" />
+    <NavigationProperty Name="Projects" Relationship="Self.ProjectTechJunction" FromRole="Technologies" ToRole="Projects" />
+  </EntityType>
+  <EntityType Name="UserMessage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MessageDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="WorkProjectFk">
+    <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+    <End Role="MyWorksOnProject" Type="Self.MyWorksOnProject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MyWorksOnProject">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PhotoProjectFK">
+    <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+    <End Role="Photos" Type="Self.Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Photos">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TaskTechnologyFK">
+    <End Role="Technologies" Type="Self.Technology" Multiplicity="1" />
+    <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Technologies">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="TechnologyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjectTechJunction">
+    <End Role="Technologies" Type="Self.Technology" Multiplicity="*" />
+    <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="NijatPortfolioEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AboutMes" EntityType="Self.AboutMe" />
+    <EntitySet Name="AdditionalInfoes" EntityType="Self.AdditionalInfo" />
+    <EntitySet Name="Blogs" EntityType="Self.Blog" />
+    <EntitySet Name="MyWorksOnProjects" EntityType="Self.MyWorksOnProject" />
+    <EntitySet Name="Photos" EntityType="Self.Photo" />
+    <EntitySet Name="Projects" EntityType="Self.Project" />
+    <EntitySet Name="Reviews" EntityType="Self.Review" />
+    <EntitySet Name="Tasks" EntityType="Self.Task" />
+    <EntitySet Name="Technologies" EntityType="Self.Technology" />
+    <EntitySet Name="UserMessages" EntityType="Self.UserMessage" />
+    <AssociationSet Name="WorkProjectFk" Association="Self.WorkProjectFk">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="MyWorksOnProject" EntitySet="MyWorksOnProjects" />
+    </AssociationSet>
+    <AssociationSet Name="PhotoProjectFK" Association="Self.PhotoProjectFK">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="Photos" EntitySet="Photos" />
+    </AssociationSet>
+    <AssociationSet Name="TaskTechnologyFK" Association="Self.TaskTechnologyFK">
+      <End Role="Technologies" EntitySet="Technologies" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectTechJunction" Association="Self.ProjectTechJunction">
+      <End Role="Technologies" EntitySet="Technologies" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

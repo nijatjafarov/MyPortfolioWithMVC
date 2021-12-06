@@ -1,0 +1,27 @@
+.blog {
+    margin-bottom: 50px;
+}
+
+.date-and-link {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .date-and-link a {
+        text-decoration-line: underline;
+        text-decoration-style: wavy;
+        text-decoration-thickness: 1.3px;
+        text-decoration-color: green;
+    }
+
+/*responsive part*/
+@media screen and (max-width: 550px) {
+    .date-and-link {
+        display: block;
+    }
+
+        .date-and-link p {
+            margin: 4px 0;
+        }
+}

@@ -1,0 +1,235 @@
+/*Common styles*/
+body {
+    margin: 0;
+    background-color: #1d1c1c;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.header-font {
+    font-family: 'Source Code Pro', 'Playfair Display', serif;
+    color: #3b994f;
+    word-break: break-all;
+    font-weight: 400;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.main-font {
+    font-family: 'Source Code Pro', 'Futurica', sans-serif;
+    color: white;
+}
+
+ol {
+    border-left: 1px solid gray;
+}
+
+.section {
+    margin-top: 70px;
+}
+
+.page-info {
+    font-weight: 100;
+    margin-bottom: 0;
+}
+
+.container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    margin-top: 40px;
+    align-items: center;
+}
+
+.navbar ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+    .navbar ul li {
+        list-style: none;
+        padding-right: 30px;
+    }
+
+.main-header i {
+    font-size: 40px;
+    color: white;
+    display: none;
+    cursor: pointer;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1.3px;
+    text-decoration-color: green;
+}
+
+.main-part {
+    margin-top: 70px;
+}
+
+.info h1 {
+    margin: 0;
+}
+
+.additional-info-list {
+    color: #141B4D;
+}
+
+
+
+.section h3 {
+    margin: 0;
+}
+
+.responsive-header {
+    display: none;
+    overflow: hidden;
+    height: 0px;
+    transition: all 0.5s;
+    transition-timing-function: ease;
+}
+
+    .responsive-header ul {
+        display: block;
+    }
+
+        .responsive-header ul li {
+            padding-bottom: 10px;
+        }
+
+/*special styles*/
+.technology {
+    margin-top: 18px;
+}
+
+.tech-inside {
+    border-left: 1px solid gray;
+    padding-top: 15px;
+    padding-left: 50px;
+}
+
+.technology h4 {
+    margin: 0;
+}
+
+.technology p {
+    margin: 0;
+    margin-top: 4px;
+    color: white;
+}
+
+p span, h4 span {
+    color: #3b994f;
+}
+
+.technology li {
+    text-decoration-style: wavy;
+    text-decoration-color: green;
+    cursor: pointer;
+}
+
+    .technology li a {
+        color: white;
+        text-decoration-style: wavy;
+        text-decoration-color: green;
+    }
+
+
+/*Reviews*/
+.comments-container {
+    overflow: auto;
+}
+
+.comments {
+    display: inline-flex;
+}
+
+.comment {
+    width: 302px;
+    padding-right: 30px;
+    margin-top: 18px;
+}
+
+.comment-quote {
+    margin: 0;
+    position: absolute;
+    top: -80px;
+}
+
+.comment-content {
+    margin-top: 0;
+}
+
+.comment-owner {
+    margin: 0;
+}
+
+.owner-profession {
+    margin: 0;
+    color: #51a4d0;
+}
+
+
+/*Footer part*/
+footer {
+    margin-bottom: 40px;
+    margin-top: 90px;
+}
+
+.lets-chat {
+    border-top: 1px solid gray;
+    padding-top: 18px;
+}
+
+.footer-contact {
+    margin: 0;
+    margin-top: 18px;
+}
+
+    .footer-contact p {
+        margin: 0;
+        margin-bottom: 4px;
+    }
+
+/*responsive part*/
+@media screen and (max-width: 768px) {
+    .main-navbar {
+        display: none;
+    }
+
+    .main-header {
+        justify-content: space-between;
+    }
+
+        .main-header i {
+            display: block;
+        }
+
+    .responsive-header {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .container {
+        width: 80%;
+    }
+
+    body, h1, h2, h3, h4, h5, h6 {
+        font-size: 15px;
+    }
+}

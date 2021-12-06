@@ -1,0 +1,37 @@
+﻿@using Portfolio.Models
+@model Technology
+@{
+    ViewBag.Title = "Technology";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@ViewBag.Header</h3>
+<form method="POST">
+    <div class="form-group">
+        @Html.Label("Ad")
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("İstifadə vəziyyəti")
+        @Html.TextBoxFor(m => m.UsageInfo, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.UsageInfo, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Başlama tarixi")
+        @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Bitmə tarixi")
+        @Html.TextBoxFor(m => m.FinishDate, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.FinishDate, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Üst texnologiya")
+        @Html.TextBoxFor(m => m.ParentTechnology, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.ParentTechnology, "", new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">@ViewBag.Button</button>
+</form>
+

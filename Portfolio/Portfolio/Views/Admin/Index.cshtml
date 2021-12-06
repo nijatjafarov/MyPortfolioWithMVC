@@ -1,0 +1,405 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Title{
+    <title>Admin səhifəsi</title>
+}
+
+@using (Html.BeginForm("Logout", "Account"))
+{
+    <input type="submit" class="btn btn-danger" value="Logout" onclick="return confirm('Çıxmaq istədiyinizə əminsiniz?')" />
+}
+<div style="margin-top: 8%;" class="row">
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Haqqımda</h3>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Başlıq</th>
+                <th scope="col">Məzmun</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@ViewBag.AboutMe.Header</td>
+                <td>@ViewBag.AboutMe.Content</td>
+                <td>
+                    @Html.ActionLink("Düzəlt", "UpdateAboutMe", "Admin", new { id = @ViewBag.AboutMe.Id }, null)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Əlavə informasiya</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddInfo", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">İnformasiya</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var info in ViewBag.InfoList)
+            {
+                using (Html.BeginForm("DeleteInfo", "Admin", new { id = info.Id }))
+                {
+                    <tr>
+                        <td>@info.Info</td>
+                        <td>
+                            @Html.ActionLink("Düzəlt", "UpdateInfo", "Admin", new { id = info.Id }, null)
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Texnologiyalar</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddTech", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ad</th>
+                <th scope="col">Başlama tarixi</th>
+                <th scope="col">Bitmə tarixi</th>
+                <th scope="col">İstifadə halı</th>
+                <th scope="col">Üst texnologiya</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tech in ViewBag.Technologies)
+            {
+                using (Html.BeginForm("DeleteTech", "Admin", new { id = tech.Id }))
+                {
+                    <tr>
+                        <td>@tech.Name</td>
+                        <td>@(tech.StartDate != null ? tech.StartDate.ToString("dd/MM/yyyy"): "")</td>
+                        <td>@(tech.FinishDate != null ? tech.FinishDate.ToString("dd/MM/yyyy"): "")</td>
+                        <td>@tech.UsageInfo</td>
+                        <td>@tech.ParentTechnology</td>
+                        <td>
+                            @Html.ActionLink("Düzəlt", "UpdateTech", "Admin", new { id = tech.Id }, null)
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Mənbələr</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddSource", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ad</th>
+                <th scope="col">Texnologiya</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var source in ViewBag.Sources)
+            {
+                using (Html.BeginForm("DeleteSource", "Admin", new { id = source.Id }))
+                {
+                    <tr>
+                        <td>@source.Name</td>
+                        <td>@source.Technology.Name</td>
+                        <td>
+                            @Html.ActionLink("Düzəlt", "UpdateSource", "Admin", new { id = source.Id }, null)
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Texnologiyalara uyğun işlər</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddTask", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ad</th>
+                <th scope="col">URL</th>
+                <th scope="col">Texnologiya adı</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in ViewBag.Tasks)
+            {
+                using (Html.BeginForm("DeleteTask", "Admin", new { id = task.Id }))
+                {
+                    <tr>
+                        <td>@task.Name</td>
+                        <td>@task.Link</td>
+                        <td>@task.Technology.Name</td>
+                        <td>
+                            @Html.ActionLink("Düzəlt", "UpdateTask", "Admin", new { id = task.Id }, null)
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Rəylər</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddReview", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rəy</th>
+                <th scope="col">Rəy sahibi</th>
+                <th scope="col">Rəy sahibinin vəzifəsi</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var review in ViewBag.Reviews)
+            {
+                using (Html.BeginForm("DeleteReview", "Admin", new { id = review.Id }))
+                {
+                    <tr>
+                        <td>@review.Review1</td>
+                        <td>@review.ReviewOwner</td>
+                        <td>@review.OwnerProfession</td>
+                        <td>
+                            @Html.ActionLink("Düzəlt", "UpdateReview", "Admin", new { id = review.Id }, null)
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Məqalələr</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddBlog", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Başlıq</th>
+                <th scope="col">Kontent(qısa)</th>
+                <th scope="col">Tarix</th>
+                <th scope="col">URL</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var blog in ViewBag.Blogs)
+            {
+                using (Html.BeginForm("DeleteBlog", "Admin", new { id = blog.Id }))
+                {
+                    <tr>
+                        <td>@blog.Header</td>
+                        <td>@(blog.Content.Length > 40 ? blog.Content.Substring(0, 40) : blog.Content)...</td>
+                        <td>@blog.UploadDate.ToString("dd/MM/yyyy")</td>
+                        <td>@blog.Link</td>
+                        <td>
+                            @Html.ActionLink("Düzəlt", "UpdateBlog", "Admin", new { id = blog.Id }, null)
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Proyektlər</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddProject", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ad</th>
+                <th scope="col">Haqqında(qısa)</th>
+                <th scope="col">Kod URL</th>
+                <th scope="col">Real URL</th>
+                <th scope="col">Başlama tarixi</th>
+                <th scope="col">Bitmə tarixi</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in ViewBag.Projects)
+            {
+                using (Html.BeginForm("DeleteProject", "Admin", new { id = project.Id }))
+                {
+                    <tr>
+                        <td>@project.Name</td>
+                        <td>@(project.About.Length > 40 ? project.About.Substring(0, 40) : project.About)...</td>
+                        <td>@project.CodeURL</td>
+                        <td>@project.RealUrl</td>
+                        <td>@project.StartDate.ToString("dd/MM/yyyy")</td>
+                        <td>@project.FinishDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @Html.ActionLink("Düzəlt", "UpdateProject", "Admin", new { id = project.Id }, null)
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Proyektlər və uyğun texnologiyalar</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddProjAndTech", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Proyekt</th>
+                <th scope="col">Texnologiya</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in ViewBag.Projects)
+            {
+                foreach (var tech in project.Technologies)
+                {
+                    using (Html.BeginForm("DeleteProjAndTech", "Admin", new { ProjId = project.Id, TechId = tech.Id }))
+                    {
+                        <tr>
+                            <td>@project.Name</td>
+                            <td>@tech.Name</td>
+                            <td>
+                                @Html.ActionLink("Düzəlt", "UpdateProjAndTech", "Admin", new { ProjId = project.Id, TechId = tech.Id }, null)
+                                <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Proyektlərin şəkilləri</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddPhoto", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Proyekt</th>
+                <th scope="col">Şəklin adı</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var photo in ViewBag.Photos)
+            {
+                using (Html.BeginForm("DeletePhoto", "Admin", new { id = photo.Id }))
+                {
+                    <tr>
+                        <td>@photo.Project.Name</td>
+                        <td>@photo.Name</td>
+                        <td>
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Proyektlərdə gördüyüm işlər</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddWork", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Proyekt</th>
+                <th scope="col">Gördüyüm iş</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var work in ViewBag.Works)
+            {
+                using (Html.BeginForm("DeleteWork", "Admin", new { id = work.Id }))
+                {
+                    <tr>
+                        <td>@work.Project.Name</td>
+                        <td>@work.Name</td>
+                        <td>
+                            @Html.ActionLink("Düzəlt", "UpdateWork", "Admin", new { id = work.Id }, null)
+                            <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div style="display: flex; margin-bottom: 10px;">
+        <h3>Kontakt məlumatlarım</h3>
+        <a style="font-size: 1.5em; margin-left: 10px;" href="@Url.Action("AddContact", "Admin")"><i class="bi bi-plus-square"></i></a>
+    </div>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ad</th>
+                <th scope="col">Dəyər</th>
+                <th scope="col">URL</th>
+                <th scope="col">Kontakt səhifədə göstər</th>
+                <th scope="col">Footer-də göstər</th>
+                <th scope="col">Redaktə</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in ViewBag.Contacts)
+            {
+                using (Html.BeginForm("DeleteContact", "Admin", new { id = contact.Id }))
+                {
+            <tr>
+                <td>@contact.Name</td>
+                <td>@contact.Value</td>
+                <td>@contact.URL</td>
+                <td>@contact.ShowOnContactPage</td>
+                <td>@contact.ShowOnFooter</td>
+                <td>
+                    @Html.ActionLink("Düzəlt", "UpdateContact", "Admin", new { id = contact.Id }, null)
+                    <input type="submit" value="Sil" onclick="return confirm('Bu məlumatı silmək istədiyinizə əminsiniz?')" />
+                </td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <h3>İstifadəçidən gələn mesajlar</h3>
+    <table style="margin-bottom: 5%;" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ad</th>
+                <th scope="col">Emeyl</th>
+                <th scope="col">Mesaj</th>
+                <th scope="col">Tarix</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var message in ViewBag.UserMessages)
+            {
+                <tr>
+                    <td>@message.UserName</td>
+                    <td>@message.UserMail</td>
+                    <td>@message.UserMsg</td>
+                    <td>@message.MessageDate.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

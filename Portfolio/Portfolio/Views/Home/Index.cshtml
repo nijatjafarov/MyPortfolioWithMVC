@@ -1,0 +1,94 @@
+﻿@using Portfolio.Models
+@section 
+    Head {
+    <title>Haqqımda</title>
+}
+<div class="info">
+    <h1 style="font-size: 18px;" class="header-font first-header">// @ViewBag.AboutMe.Header</h1>
+    <p style="color: #caa050; word-break:normal" class="main-info main-font">"""@ViewBag.AboutMe.Content"""</p>
+    @if (ViewBag.InfoList.Count > 0)
+    {
+        <h3 style="color: white;font-size: 18px;" class="additional-info-list main-font">Həmçinin...</h3>
+        <ol class="main-font" start="1">
+            @for (int i = 0; i < ViewBag.InfoList.Count; i++)
+            {
+            <li>@ViewBag.InfoList[i].Info</li>
+            }
+        </ol>
+    }
+</div>
+<div class="section">
+    <h3 class="header-font first-header">// İstifadə etdiyim texnologiyalar&shy</h3>
+    @for (int i = 0; i < ViewBag.Technologies.Count; i++)
+    {
+        <div class="technology">
+            <h4 style="color: #51a4d0;" class="header-font second-header">@ViewBag.Technologies[i].Name<span style="color: #51a4d0;">(</span><span>@ViewBag.Technologies[i].ParentTechnology</span>):</h4>
+
+            <div class="tech-inside">
+                <p class="main-font">istifadə_vəziyyəti(<span>"@ViewBag.Technologies[i].UsageInfo"</span>)</p>
+                @if (ViewBag.Technologies[i].StartDate != null)
+                {
+                    <p class="main-font">tədrisə_başlama_tarixi(<span>"@ViewBag.Technologies[i].StartDate.ToString("dd/MM/yyyy")"</span>)</p>
+                }
+                @if (ViewBag.Technologies[i].FinishDate != null)
+                {
+                    <p class="main-font">tədrisin_bitmə_tarixi(<span>"@ViewBag.Technologies[i].FinishDate.ToString("dd/MM/yyyy")"</span>)</p>
+                }
+                else
+                {
+                    <p class="main-font">tədrisin_bitmə_tarixi(<span>"Öyrənməyə hələ çox şey var..."</span>)</p>
+                }
+            <p class="main-font">
+                öyrəndiyim_mənbələr(
+                @{
+                    List<Source> sources = new List<Source>();
+                    foreach (var source in ViewBag.Technologies[i].Sources)
+                    {
+                        sources.Add(source);
+                    }
+                }
+                @for (int j = 0; j < sources.Count - 1; j++)
+                {
+                    <span>"@sources[j].Name"</span><span style="color: white;">,</span>
+                }
+                <span>"@sources[sources.Count-1].Name"</span>
+                )
+            </p>
+                @if (ViewBag.Technologies[i].Tasks.Count > 0)
+                {
+                    <p class="main-font">Bu dövr ərzində görülmüş işlər:</p>
+                    <ol class="main-font">
+                        @foreach (var task in ViewBag.Technologies[i].Tasks)
+                        {
+                            <li><a href="@task.Link" target="_blank">@task.Name</a></li>
+                        }
+                    </ol>
+                }
+            </div>
+        </div>
+    }
+</div>
+@if (ViewBag.Reviews.Count > 0)
+{
+    <div class="section reviews">
+        <h3 class="header-font first-header">// Haqqımda bildirilən rəylər</h3>
+        <div class="comments-container">
+            <div class="comments">
+                @for (int i = 0; i < ViewBag.Reviews.Count; i++)
+                {
+                    <div class="comment">
+                        <p style="color: #caa050;" class="comment-content main-font">"""@ViewBag.Reviews[i].Review1"""</p>
+                        <h5 class="comment-owner main-font">@ViewBag.Reviews[i].ReviewOwner</h5>
+                        <h6 class="owner-profession main-font">@ViewBag.Reviews[i].OwnerProfession</h6>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+@section Footer {
+    @Html.Partial("Footer")
+    }
+@section JS {
+    <script src="~/Scripts/home.js"></script>
+}

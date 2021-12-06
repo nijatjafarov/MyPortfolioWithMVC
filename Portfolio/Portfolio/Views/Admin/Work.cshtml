@@ -1,0 +1,33 @@
+﻿@using Portfolio.Models
+@model MyWorksOnProject
+@{
+    ViewBag.Title = "Source";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@ViewBag.Header</h3>
+<form method="POST">
+    <div class="form-group">
+        @Html.Label("Ad")
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Layihə")
+        <select class="form-control" id="projectId" name="projectId">
+            @foreach (var project in ViewBag.Projects)
+            {
+                if (Model != null && project.Id == Model.ProjectId)
+                {
+                    <option selected value="@project.Id">@project.Name</option>
+                }
+                else
+                {
+                    <option value="@project.Id">@project.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">@ViewBag.Button</button>
+</form>
+

@@ -1,0 +1,74 @@
+﻿@section Head {
+    <link rel="stylesheet" href="~/Content/works.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <title>İşlərim</title>
+}
+@section Additional {
+    <div class="background"></div>
+}
+<h2 class="main-font page-info">SEÇİLMİŞ İŞLƏRİM</h2>
+<div class="section">
+    @for (int i = 0; i < ViewBag.Projects.Count; i++)
+    {
+        <div class="project">
+            <h3 style="margin-bottom: 18px;" class="header-font">// @ViewBag.Projects[i].Name</h3>
+            @if (ViewBag.Projects[i].Technologies.Count > 0)
+            {
+                <ul style="margin-bottom: 0;" class="project-techs main-font">
+                    @foreach (var tech in ViewBag.Projects[i].Technologies)
+                    {
+                        <li style="color: #51a4d0;">#@tech.Name</li>
+                    }
+                </ul>
+            }
+            <div style="margin-top: 0;" class="technology">
+                <p style="color: #caa050;" class="main-font">"""@ViewBag.Projects[i].About"""</p>
+                <p style="margin-top: 20px;" class="main-font">Bu layihədə etdiklərim:</p>
+                <ol class="main-font">
+                    @foreach (var work in ViewBag.Projects[i].MyWorksOnProjects)
+                    {
+                        <li>@work.Name</li>
+                    }
+                </ol>
+                <p class="main-font">layihənin_əhatə_etdiyi_tarix_aralığı(<span>"@ViewBag.Projects[i].StartDate.ToString("dd/MM/yyyy") - @ViewBag.Projects[i].FinishDate.ToString("dd/MM/yyyy")"</span>) <span> // @ViewBag.Projects[i].FinishDate.Subtract(ViewBag.Projects[i].StartDate).TotalDays gün</span></p>
+                <ul class="references main-font">
+                    @if (ViewBag.Projects[i].Photos.Count > 0)
+                    {
+                        <li onclick="showSlider(this)">Layihənin şəkilləri</li>
+                    }
+                    @if (ViewBag.Projects[i].CodeURL != null)
+                    {
+                        <li><a href="@ViewBag.Projects[i].CodeURL" target="_blank">Layihənin kodları</a></li>
+                    }
+                    @if (ViewBag.Projects[i].RealUrl != null)
+                    {
+                        <li><a href="@ViewBag.Projects[i].RealUrl" target="_blank">Layihənin işlək halı</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="slider">
+                @if (ViewBag.Projects[i].Photos.Count > 0)
+                {
+                    foreach (var photo in ViewBag.Projects[i].Photos)
+                    {
+                        <div class="slide">
+                            <img src="~/Images/@photo.Name" alt="">
+                        </div>
+                    }
+                }
+                <div class="arrows">
+                    <i onclick="changePrev(this)" class="fas fa-chevron-left"></i>
+                    <i onclick="changeNext(this)" class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Footer {
+    @Html.Partial("Footer")
+}
+@section JS {
+    <script src="~/Scripts/works.js"></script>
+    <script src="~/Scripts/home.js"></script>
+}
+

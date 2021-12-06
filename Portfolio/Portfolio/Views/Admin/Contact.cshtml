@@ -1,0 +1,35 @@
+﻿@model Portfolio.Models.Contact
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@ViewBag.Header</h3>
+<form method="POST">
+    <div class="form-group">
+        @Html.Label("Ad")
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Dəyər")
+        @Html.TextBoxFor(m => m.Value, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.Value, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("URL")
+        @Html.TextBoxFor(m => m.URL, new { @class = "form-control form-control-lg" })
+        @Html.ValidationMessageFor(m => m.URL, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.CheckBoxFor(m => m.ShowOnContactPage)
+        <label for="ShowOnContactPage"> Kontakt səhifədə göstər</label><br>
+    </div>
+    <div class="form-group">
+        @Html.CheckBoxFor(m => m.ShowOnFooter)
+        <label for="ShowOnFooter"> Footer-də göstər</label><br>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">@ViewBag.Button</button>
+</form>
+
+

@@ -1,0 +1,27 @@
+﻿@section Head {
+    <link rel="stylesheet" href="~/Content/blogs.css">
+    <title>Məqalələrim</title>
+}
+<h2 class="main-font page-info">SEÇİLMİŞ MƏQALƏLƏRİM</h2>
+<div class="section">
+    @foreach(var blog in ViewBag.Blogs)
+    {
+        <div class="blog">
+            <h3 style="margin-bottom: 18px;" class="header-font">// @blog.Header</h3>
+            <div style="margin-top: 0;" class="technology">
+                <p style="color: #caa050" class="main-font">"""@blog.Content..."""</p>
+                <div class="date-and-link">
+                    <p class="main-font">tarix(<span>"@blog.UploadDate.ToString("dd/MM/yyyy")"</span>)</p>
+                    <a class="main-font" href="@blog.Link" target="_blank">Ətraflı oxuyun</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Footer {
+    @Html.Partial("Footer")
+}
+@section JS {
+    <script src="~/Scripts/home.js"></script>
+}
+

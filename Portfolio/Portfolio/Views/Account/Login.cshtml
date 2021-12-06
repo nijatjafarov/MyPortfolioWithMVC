@@ -1,0 +1,35 @@
+﻿@model Portfolio.Models.AdminLogin
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Login</h2>
+<hr />
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+    <div class="form-group">
+        <label>İstifadəçi adı</label>
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Şifrə</label>
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.CheckBox("isPersistent")
+        <label for="isPersistent"> Yadda saxla</label><br>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Daxil ol</button>
+    </div>
+}
+
